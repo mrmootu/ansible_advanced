@@ -2,7 +2,6 @@
 ###  gather_facts: false
   become: true
   hosts: appdbs
-
   tasks:
   - name: install postgres
     yum:
