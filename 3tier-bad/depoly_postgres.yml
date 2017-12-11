@@ -1,5 +1,4 @@
 - name: deploy postgres on application server
-###  gather_facts: false
   become: true
   hosts: appdbs
   tasks:

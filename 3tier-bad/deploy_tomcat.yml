@@ -1,6 +1,5 @@
 - name: deploy tomcat software
   hosts: apps
-###  gather_facts: false
   become: true
 
   tasks:

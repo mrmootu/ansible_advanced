@@ -1,6 +1,5 @@
 - name: deploy apache on application server
   hosts: apps
-###  gather_facts: false
   become: true
   tasks:
   - name: install apache
