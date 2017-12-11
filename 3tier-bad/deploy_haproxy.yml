@@ -1,20 +1,15 @@
 - name: deploy haproxy
   hosts: frontends
-  gather_facts: false # remove later! speeds up testing
+###  gather_facts: false # remove later! speeds up testing
   become: true
 
   tasks:
-  - name: http
+  - name: Install httpie, haproxy
     yum:
-      name: httpie
+      name: httpie, haproxy
       state: latest
 
-  - name: install HAProxy
-    yum:
-      name: haproxy
-      state: latest
-
-  - name: enable HAProxy
+  - name: enable haproxy
     service:
       name: haproxy
       state: started
@@ -23,8 +18,8 @@
     template:
       src: ./haproxy.cfg.j2
       dest: /etc/haproxy/haproxy.cfg
+    notify: restart haproxy
 
-  - name: restart HAproxy
-    service:
-      name: haproxy
-      state: restarted
+  handlers:
+  - name: restart haproxy
+    service: name=haproxy state=restarted

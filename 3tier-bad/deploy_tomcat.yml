@@ -1,6 +1,6 @@
 - name: deploy tomcat software
   hosts: apps
-  gather_facts: false
+###  gather_facts: false
   become: true
 
   tasks:
@@ -8,7 +8,7 @@
     package:
       name: tomcat
       state: latest
-      
+
   - name: enable tomcat at boot
     service:
       name: tomcat
@@ -24,30 +24,8 @@
       src: index.html.j2
       dest: /usr/share/tomcat/webapps/ROOT/index.html
       mode: 0644
+    notify: restart tomcat
 
-  - name: start tomcat
-    service:
-      name: tomcat
-      state: started
-
-- name: index.html on app 1
-  hosts: app1.6340.internal
-  gather_facts: false
-  become: true
-
-  tasks:
-  - name: copy static index.html to tomcat webapps/ansible/index.html
-    template:
-      src: index.html.app1
-      dest: /usr/share/tomcat/webapps/ansible/index.html
-
-- name: index.html on app 2
-  hosts: app1.6340.internal
-  gather_facts: false
-  become: true
-
-  tasks:
-  - name: copy static index.html to tomcat webapps/ansible/index.html
-    template:
-      src: index.html.app2
-      dest: /usr/share/tomcat/webapps/ansible/index.html
+  handlers:
+  - name: restart tomcat
+    service: name=tomcat state=restarted

@@ -1,6 +1,6 @@
 - name: configuration
   hosts: all
-  gather_facts: false # remove later! speeds up testing
+##  gather_facts: false # remove later! speeds up testing
   become: true
 
   tasks:
