@@ -1,0 +1,6 @@
+---
+- include: configuration.yml
+- include: deploy_haproxy.yml GUID=6340
+- include: deploy_tomcat.yml
+- include: depoly_postgres.yml
+- include: deploy_apache.yml
